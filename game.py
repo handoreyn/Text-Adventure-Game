@@ -1,51 +1,11 @@
-class Weapon:
-    def __init__(self):
-        raise NotImplementedError('Do not create raw Weapon objects.')
-
-    def __str__(self):
-        return self.name
-
-
-class Rock(Weapon):
-    def __init__(self):
-        self.name = 'Rock'
-        self.description = 'A fist-sized rock, suitable for bludgeoning.'
-        self.damage = 5
-
-
-class Dagger(Weapon):
-    def __init__(self):
-        self.name = 'Dagger'
-        self.description = 'A small dagger with some rust.' \
-            'Somewhat more dangerous than a rock.'
-        self.damage = 10
-
-
-class RustySword(Weapon):
-    def __init__(self):
-        self.name = 'Rusty Sword'
-        self.description = 'This sword is showing its age, ' \
-            'but still has some fight in it.'
-        self.damage = 20
-
-
-class LightSaber(Weapon):
-    def __init__(self):
-        self.name = 'Lightsaber'
-        self.description = 'Jedi''s weapon'
-        self.damage = 100
-
-# function for getting user's action
-
-
-def get_player_command():
-    return input('Action: ')
+from player import Player
 
 
 def play():
-    inventory = [LightSaber(), 'Gold(5)', 'Crusty Bread']
 
     print('Escape from Cave Terror!')
+
+    player = Player()
 
     while True:
         action_input = get_player_command()
@@ -59,26 +19,11 @@ def play():
         elif action_input in ['e', 'E']:
             print('Go East!')
         elif action_input in ['i', 'I']:
-            print('Inventory: ')
-            for item in inventory:
-                print('*' + str(item))
+            player.print_inventory()
         else:
             print('Invalid action')
 
-
-def most_powerful_weapon(inventory):
-    max_damage = 0
-    best_weapon = None
-
-    for item in inventory:
-        try:
-            if item.damage > max_damage:
-                best_weapon = item
-                max_damage = item.damage
-        except AttributeError:
-            pass
-
-    return best_weapon
-
+def get_player_command():
+    return input('Action: ')
 
 play()
