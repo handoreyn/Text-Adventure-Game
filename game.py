@@ -1,6 +1,10 @@
 class Weapon:
+    def __init__(self):
+        raise NotImplementedError('Do not create raw Weapon objects.')
+
     def __str__(self):
         return self.name
+
 
 class Rock(Weapon):
     def __init__(self):
@@ -60,6 +64,21 @@ def play():
                 print('*' + str(item))
         else:
             print('Invalid action')
+
+
+def most_powerful_weapon(inventory):
+    max_damage = 0
+    best_weapon = None
+
+    for item in inventory:
+        try:
+            if item.damage > max_damage:
+                best_weapon = item
+                max_damage = item.damage
+        except AttributeError:
+            pass
+
+    return best_weapon
 
 
 play()
