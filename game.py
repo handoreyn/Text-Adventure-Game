@@ -3,6 +3,8 @@ def get_player_command():
     return input('Action: ')
 
 def play():
+    inventory = ['Dagger', 'Gold(5)', 'Crusty Bread']
+
     print('Escape from Cave Terror!')
     action_input = get_player_command()
 
