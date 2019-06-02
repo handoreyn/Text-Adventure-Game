@@ -1,6 +1,10 @@
+# function for getting user's action
+def get_player_command():
+    return input('Action: ')
+
 print('Escape from Cave Terror!')
 
-action_input = input('Action: ')
+action_input = get_player_command()
 
 if action_input == 'n' or action_input == 'N':
     print('Go North!')
