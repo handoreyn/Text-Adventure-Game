@@ -9,7 +9,7 @@ class Enemy:
     def __str__(self):
         return self.name
 
-    def __is_alive(self):
+    def is_alive(self):
         return self.hp > 0
 
 
