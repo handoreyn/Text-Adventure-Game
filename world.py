@@ -41,12 +41,54 @@ class VictoryTile(MapTile):
                 """
 
 
+world_dsl = '''
+    |  |VT|  |
+    |  |EN|  |
+    |EN|ST|EN|
+    |  |EN|  |
+    '''
+
 world_map = [
     [None, ValueError(1, 0), None],
     [None, EnemyTile(1, 1) None],
     [EnemyTile(0, 2), StartTile(1, 2), EnemyTile(2, 2)],
     [None, EnemyTile(1, 3), None]
 ]
+
+
+def is_dsl_valid(dsl):
+    if dsl.count('|ST|') != 1:
+        return False
+    if dsl.count('|VT|') == 0:
+        return False
+
+    lines = dsl.splitlines()
+    lines = [l for l in lines if l]
+    pipe_counts = [line.count('|') for line in lines]
+
+    for count in pipe_counts:
+        if count != pipe_counts[0]:
+            return False
+
+    return True
+
+
+def parse_world_dsl():
+    if not is_dsl_valid(world_dsl):
+        raise SyntaxError('DSL is invalid!')
+
+    dsl_lines = world_dsl.splitlines()
+    dsl_lines = [x for x in dsl_lines if x]
+
+    for y, dsl_row in enumerate(dsl_lines):
+        row = []
+        dsl_cells = dsl_row.split('|')
+        dsl_cells = [c for in dsl_cells if c]
+        for x, y dsl_cell in enumerate(dsl_cells):
+            tile_type = tile_type_dict[dsl_cell]
+            row.append(tile_type(x, y) if tile_type else None)
+
+    world_map.append(row)
 
 
 def tile_at(x, y):

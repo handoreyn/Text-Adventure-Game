@@ -9,6 +9,8 @@ def play():
 
     while True:
         room = world.tile_at(player.x, player.y)
+        world.parse_world_dsl()
+
         print(room.intro_text())
 
         room.modify_player(player)
@@ -30,5 +32,6 @@ def play():
             player.heal()
         else:
             print('Invalid action')
+
 
 play()
