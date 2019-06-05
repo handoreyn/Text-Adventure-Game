@@ -5,7 +5,6 @@ import world
 def play():
 
     print('Escape from Cave Terror!')
-
     player = Player()
 
     while True:
@@ -13,7 +12,7 @@ def play():
         print(room.intro_text())
 
         room.modify_player(player)
-        action_input = get_player_command()
+        choose_action(room, player)
 
         if action_input in ['n', 'N']:
             player.move_north()
@@ -31,10 +30,5 @@ def play():
             player.heal()
         else:
             print('Invalid action')
-
-
-def get_player_command():
-    return input('Action: ')
-
 
 play()
