@@ -87,7 +87,7 @@ class EnemyTile(MapTile):
 
     def intro_text(self):
         text = self.alive_text if self.enemy.is_alive()
-        else self.dead_text
+        else self.dead_textgit
         return text
 
     def modify_player(self, player):
