@@ -43,3 +43,29 @@ class LightSaber(Weapon):
             'It ''s hard to find, hard to use. You should have to ' \
             'trained to use that. So, are you?'
         self.damage = 100
+
+
+class Consumable:
+    def __init__(self):
+        raise NotImplementedError('Do not create raw Consumable objects.')
+
+    def __str__(self):
+        return '{} (+{} HP)'.format(self.name, self.healing_value)
+
+
+class CrustyBread(Consumable):
+    def __init__(self):
+        self.name = 'Crusty Bread'
+        self.healing_value = 10
+
+
+class Apple(Consumable):
+    def __init__(self):
+        self.name = 'Apple'
+        self.healing_value = 10
+
+
+class SprintWater(Consumable):
+    def __init__(self):
+        self.name = 'Spring Water'
+        self.healing_value = 12

@@ -8,7 +8,7 @@ class Player:
             items.Rock(),
             items.Dagger(),
             'Gold(5)',
-            'Crusty Bread'
+            items.CrustyBread()
         ]
 
         self.x = 1
