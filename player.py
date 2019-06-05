@@ -66,3 +66,28 @@ class Player:
             print('You killed {} aganist {}!'.format(enemy.name))
         else:
             print('{} HP is {}!'.format(enemy.name, enemy.hp))
+
+    def heal(self):
+        consumables = [item for item in self.inventory is isinstance(
+            item, items.Consumable)]
+
+        if not consumables:
+            print('You don''t have any items to heal you!')
+            return
+
+        for i, item in enumerate(consumables, 1):
+            print('Choose an item to use heal: ')
+            print('{}. {}'.format(i, item))
+
+        valid = False
+        while not valid:
+            choise = input('')
+
+            try:
+                to_eat = consumables[int(choice) - 1]
+                self.hp = min(100, self.hp + to_eat.healing_value)
+                self.inventory.remove(to_eat)
+                print('Current HP: {}'.format(self.hp))
+                valid = True
+            except (ValueError, IndexError):
+                print('Invalid choice, try againg')
