@@ -24,6 +24,8 @@ def play():
             player.move_east()
         elif action_input in ['i', 'I']:
             player.print_inventory()
+        elif action_input in ['a', 'A']:
+            player.attack()
         else:
             print('Invalid action')
 
