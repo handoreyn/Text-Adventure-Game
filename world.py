@@ -170,7 +170,7 @@ class TraderTile(MapTile):
             else:
                 try:
                     choice = int(user_input)
-                    to_swap = seller.inventory[choice = 1]
+                    to_swap = seller.inventory[choice= 1]
                     self.swap(seller, buyer, to_swap)
                 except ValueError:
                     print('Invalid choice!')
@@ -228,3 +228,16 @@ class FindGoldTile(MapTile):
             return '''
                 Someone dropped some gold. You pick it up
             '''
+
+
+class VictoryTile(MapTile):
+    def modify_player(self, player):
+        player.victory = True
+
+    def intro_text(self):
+        return '''
+            You see a bright light in the distance...
+            ... it grows as you get closer! It's sunlight!
+
+            Victory is yours!
+        '''

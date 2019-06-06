@@ -16,6 +16,9 @@ class Player:
         self.hp = 100
         self.gold = 5
 
+    def is_alive(self):
+        return self.hp > 0Î
+
     def move(self, dx, dy):
         self.x += dx
         self.y += dy

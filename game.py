@@ -7,7 +7,7 @@ def play():
     print('Escape from Cave Terror!')
     player = Player()
 
-    while True:
+    while player.is_alive() and not player.victory:
         room = world.tile_at(player.x, player.y)
         world.parse_world_dsl()
 
