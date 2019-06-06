@@ -8,13 +8,13 @@ class Player:
         self.inventory = [
             items.Rock(),
             items.Dagger(),
-            'Gold(5)',
             items.CrustyBread()
         ]
 
-        self.x = 1
-        self.y = 2
+        self.x = world.start_tile_location[0]
+        self.y = world.start_tile_location[1]
         self.hp = 100
+        self.gold = 5
 
     def move(self, dx, dy):
         self.x += dx
@@ -36,6 +36,7 @@ class Player:
         print('Inventory:')
         for item in self.inventory:
             print('* ' + str(item))
+        print('Gold: {}'.format(self.gold))
 
         best_weapon = self.most_powerful_weapon()
 
@@ -93,6 +94,10 @@ class Player:
             except (ValueError, IndexError):
                 print('Invalid choice, try againg')
 
+    def trade(self):
+        room = world.tile_at(self.x, self.y)
+        room.check_if_trade(self)
+
     def get_available_actions(room, player):
         actions = OrderedDict()
         print('Choose an action: ')
@@ -100,7 +105,9 @@ class Player:
         if player.inventory:
             action_adder(actions, 'i', player.print_inventory,
                          'Print inventory')
-
+        if isinstance(room, world.TraderTile):
+            action_adder(actions, 't', player.trade, 'Trade')
+            
         if isinstance(room, world.EnemyTile) and room.enemy.is_alive():
             action_adder(actions, 'a', player.move_north, 'Attack')
         else:
