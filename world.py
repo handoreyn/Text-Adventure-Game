@@ -43,10 +43,11 @@ class VictoryTile(MapTile):
 
 
 world_dsl = '''
-    |  |VT|  |
-    |  |EN|  |
-    |EN|ST|EN|
-    |  |EN|  |
+    |EN|EN|VT|EN|EN|
+    |EN|  |  |  |EN|
+    |EN|FG|EN|  |TT|
+    |TT|  |ST|FG|EN|
+    |FG|  |EN|  |FG|
     '''
 
 world_map = [
@@ -55,6 +56,13 @@ world_map = [
     [EnemyTile(0, 2), StartTile(1, 2), EnemyTile(2, 2)],
     [None, EnemyTile(1, 3), None]
 ]
+
+tile_type_dict = {'VT': VictoryTile,
+                  'EN': EnemyTIle,
+                  'ST': StartTile,
+                  'FG': FindGoldTile,
+                  'TT': TraderTile,
+                  '  ': None}
 
 
 def is_dsl_valid(dsl):
@@ -74,6 +82,9 @@ def is_dsl_valid(dsl):
     return True
 
 
+start_tile_location = None
+
+
 def parse_world_dsl():
     if not is_dsl_valid(world_dsl):
         raise SyntaxError('DSL is invalid!')
@@ -87,8 +98,10 @@ def parse_world_dsl():
         dsl_cells = [c for in dsl_cells if c]
         for x, y dsl_cell in enumerate(dsl_cells):
             tile_type = tile_type_dict[dsl_cell]
-            row.append(tile_type(x, y) if tile_type else None)
-
+            if tile_type == StartTile:
+                global start_tile_location
+                start_tile_location = x, y
+        row.append(tile_type(x, y) if tile_type else None)
     world_map.append(row)
 
 
@@ -192,3 +205,26 @@ class TraderTile(MapTile):
             A frail not-quite-human, not-quite-creature squats in the corner
             clinking his hold conins together. He looks willing to trade.
         '''
+
+
+class FindGoldTile(MapTile):
+    def __init__(self, x, y):
+        self.gold = random.randint(1, 50)
+        self.gold_claimed = False
+        super.__init__(x, y)
+
+    def modify_player(self, player):
+        if not self.gold_claimed:
+            self.gold_claimed = True
+            player.gold = player.gold + self.gold
+            print('{} gold added.'.format(self.gold))
+
+    def intro_text(self):
+        if self.gold_claimed:
+            return '''
+                Another remarkable part of the cave. You must forge onwards.
+            '''
+        else:
+            return '''
+                Someone dropped some gold. You pick it up
+            '''
