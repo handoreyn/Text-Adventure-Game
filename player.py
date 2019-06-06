@@ -107,7 +107,7 @@ class Player:
                          'Print inventory')
         if isinstance(room, world.TraderTile):
             action_adder(actions, 't', player.trade, 'Trade')
-            
+
         if isinstance(room, world.EnemyTile) and room.enemy.is_alive():
             action_adder(actions, 'a', player.move_north, 'Attack')
         else:
